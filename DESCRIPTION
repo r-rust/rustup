@@ -1,0 +1,12 @@
+Package: rustup
+Type: Package
+Title: Setup Rust Compiler for R
+Version: 1.0
+Author: Jeroen Ooms
+Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
+Description: Automatically find and install the Rust toolchain.
+License: Apache License 2.0
+Encoding: UTF-8
+LazyData: true
+Imports: sys
+RoxygenNote: 6.0.1
