@@ -2,9 +2,12 @@
 % Please edit documentation in R/rustup.R
 \name{rustup_windows}
 \alias{rustup_windows}
+\alias{rust_uninstall}
 \title{Install Rust}
 \usage{
 rustup_windows(targets = c("i686-pc-windows-gnu", "x86_64-pc-windows-gnu"))
+
+rust_uninstall()
 }
 \arguments{
 \item{targets}{which compiler targets would you like to install}
@@ -13,5 +16,8 @@ rustup_windows(targets = c("i686-pc-windows-gnu", "x86_64-pc-windows-gnu"))
 Install Rust
 }
 \examples{
+if(grepl("64", Sys.info()[["machine"]])){
+rust_uninstall()
 rustup_windows()
+}
 }

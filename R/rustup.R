@@ -1,9 +1,13 @@
 #' Install Rust
 #'
 #' @export
+#' @rdname rustup
 #' @importFrom sys exec_wait
 #' @param targets which compiler targets would you like to install
-#' @examples rustup_windows()
+#' @examples if(grepl("64", Sys.info()[["machine"]])){
+#' rust_uninstall()
+#' rustup_windows()
+#' }
 rustup_windows <- function(targets = c('i686-pc-windows-gnu', 'x86_64-pc-windows-gnu')){
   mypath <- Sys.getenv('PATH')
   if(!grepl('\\.cargo[\\/]bin', mypath)){
@@ -28,4 +32,19 @@ rustup_windows <- function(targets = c('i686-pc-windows-gnu', 'x86_64-pc-windows
     }
   }
   sys::exec_wait('rustup', 'show')
+}
+
+#' @export
+#' @rdname rustup
+rust_uninstall <- function(){
+  user <- Sys.getenv('userprofile')
+  cargo <- normalizePath(file.path(user, '.cargo'))
+  rustup <- normalizePath(file.path(user, '.rustup'))
+  Sys.setenv(PATH = paste0(cargo, "\\bin;", Sys.getenv('PATH')))
+  if(nchar(Sys.which('rustup')))
+    sys::exec_wait('rustup', c('self', 'uninstall', '-y'))
+  if(file.exists(cargo))
+    sys::exec_wait('cmd', c('/C', 'rmdir', cargo, '/S', '/Q'))
+  if(file.exists(rustup))
+    sys::exec_wait('cmd', c('/C', 'rmdir', rustup, '/S', '/Q'))  
 }
