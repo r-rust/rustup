@@ -38,8 +38,8 @@ rustup_windows <- function(targets = c('i686-pc-windows-gnu', 'x86_64-pc-windows
 #' @rdname rustup
 rust_uninstall <- function(){
   user <- Sys.getenv('userprofile')
-  cargo <- normalizePath(file.path(user, '.cargo'))
-  rustup <- normalizePath(file.path(user, '.rustup'))
+  cargo <- normalizePath(file.path(user, '.cargo'), mustWork = FALSE)
+  rustup <- normalizePath(file.path(user, '.rustup'), mustWork = FALSE)
   Sys.setenv(PATH = paste0(cargo, "\\bin;", Sys.getenv('PATH')))
   if(nchar(Sys.which('rustup')))
     sys::exec_wait('rustup', c('self', 'uninstall', '-y'))
